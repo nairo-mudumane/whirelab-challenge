@@ -5,6 +5,9 @@
   "repository": "https://github.com/nairo-mudumane/whirelab-challenge.git",
   "author": "DinisM02 <dinismatavele02@gmail.com>",
   "license": "MIT",
+  "engines": {
+    "node": ">=16.13"
+  },
   "scripts": {
     "dev": "tsx watch ./src/server.ts",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
