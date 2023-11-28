@@ -15,8 +15,6 @@ export async function likeById(request: Request, response: Response) {
 
     return response.status(200).json({ message: "ok" });
   } catch (error) {
-    return response
-      .status(500)
-      .json({ message: (Error as unknown as Error).message });
+    return response.status(500).json({ message: (error as Error).message });
   }
 }

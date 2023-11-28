@@ -7,8 +7,6 @@ export async function getAll(request: Request, response: Response) {
 
     return response.status(200).json({ message: "ok", data: repos });
   } catch (error) {
-    return response
-      .status(500)
-      .json({ message: (Error as unknown as Error).message });
+    return response.status(500).json({ message: (error as Error).message });
   }
 }

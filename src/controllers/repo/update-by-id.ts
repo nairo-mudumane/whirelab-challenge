@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { z as zod } from "zod";
 import { IUpdateRepo } from "../../@types";
 import database from "../../services/database";
+import helpers from "../../helpers";
 
 export async function updateById(request: Request, response: Response) {
   const { id } = request.params as { id: string };
@@ -9,19 +9,13 @@ export async function updateById(request: Request, response: Response) {
   const { url, title, techs } = payload;
 
   try {
-    const zodSchema = zod.object({
-      title: zod.string().nullish(),
-      url: zod.string().url({ message: "invalid url" }).nullish(),
-      techs: zod.string().array().nullish(),
-    });
-    zodSchema.parse({ url, title, techs });
+    helpers.repo.create({ url, title, techs });
+    ({ url, title, techs });
 
     const exists = await database.repo.findFirst({ where: { id } });
     if (!exists) throw new Error("repository not found");
   } catch (error) {
-    return response
-      .status(400)
-      .json({ message: (Error as unknown as Error).message });
+    return response.status(400).json({ message: (error as Error).message });
   }
 
   try {
@@ -29,8 +23,6 @@ export async function updateById(request: Request, response: Response) {
 
     return response.status(201).json({ message: "updated" });
   } catch (error) {
-    return response
-      .status(500)
-      .json({ message: (Error as unknown as Error).message });
+    return response.status(500).json({ message: (error as Error).message });
   }
 }

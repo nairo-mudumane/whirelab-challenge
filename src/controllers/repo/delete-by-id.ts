@@ -11,8 +11,6 @@ export async function deleteById(request: Request, response: Response) {
 
     return response.status(201).json({ message: "updated" });
   } catch (error) {
-    return response
-      .status(500)
-      .json({ message: (Error as unknown as Error).message });
+    return response.status(500).json({ message: (error as Error).message });
   }
 }
