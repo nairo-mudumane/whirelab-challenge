@@ -9,7 +9,7 @@ export async function updateById(request: Request, response: Response) {
   const { url, title, techs } = payload;
 
   try {
-    helpers.repo.create({ url, title, techs });
+    helpers.repo.updateById({ url, title, techs });
     ({ url, title, techs });
 
     const exists = await database.repo.findFirst({ where: { id } });
